@@ -1,48 +1,47 @@
 let mobilenet;
-let video;
 let classifier; 
 let output = '';
 let button1, button2, trainButton;
+let userImage;
 
 function modelReady(){
     console.log('model is ready');
 }
-
-function videoReady(){
-    console.log('video is ready');
+function imageReady(){
+    image(userImage, 0, 0, width, height);
+    console.log('image is ready');
 }
+
 function gotResults(error, results){
     if(error){
         console.error(error);
     }else{
         output = results[0].label;
-        mobilenet.classify(gotResults);
+        //mobilenet.classify(gotResults);
     }
  }
 function setup(){
     createCanvas(640, 520);
     background(0);
-    video = createCapture(VIDEO);
-    video.hide();
     mobilenet = ml5.featureExtractor('MobileNet', modelReady);
-    classifier = mobilenet.classification(video, videoReady);
+    classifier = mobilenet.classification(userImage, imageReady);
 
-    button1 = createButton ('Object1');
+    button1 = createButton ('Fire');
     button1.mousePressed(function(){
-        classifier.addImage('Object1');
+        classifier.addImage(userImage, 'Fire');
     });
 
-    button2 = createButton ('Object2');
+    button2 = createButton ('Water');
     button2.mousePressed(function(){
-        classifier.addImage('Object2');
+        classifier.addImage(userImage, 'Water');
     });
 
     trainButton = createButton ('train');
     trainButton.mousePressed(function(){
         classifier.train(function(loss){
             if(loss == null){
-                console.log('traning complete');
-                classifier.classify(gotResults);
+                console.log('training complete');
+                //classifier.classify(gotResults);
             }else{
                 console.log(loss);
             }
@@ -51,9 +50,16 @@ function setup(){
 }
 
 function draw(){
-    background(0);
-    image(video,0 ,0);
-    fill(255);
     textSize(32);
     text(output, 10, height -10);
 }
+
+$(document).ready(function(){
+    console.log('ready');
+    $('.inputButton').click(function(){
+        userImage = createImg($('.input').val(), imageReady);
+        userImage.hide();
+        console.log($('.input').val());
+    });
+    
+})

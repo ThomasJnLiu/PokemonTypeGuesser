@@ -6,9 +6,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="script.js"></script>
+
+        <style>
+            .input{
+                display:block;
+                width:50%;
+            }
+            .guess{
+                margin: 5% auto;
+            }
+        </style>
     </head>
 
     <body>
+        <div>
+            Enter an image url in the text area and the program will attempt to guess what it is. 
+            <textarea class = "input"></textarea>
+            <button class = "inputButton">Enter</button>
+        </div>
 
+        <div class = "guess"></div>
     </body>
 </html>
