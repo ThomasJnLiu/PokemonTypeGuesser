@@ -1,0 +1,19 @@
+{
+    "children": [
+      {
+        "children": [
+          {
+            "datei": "20160409Primula_veris3.jpg", 
+            "path": "img/Schluesselblume/20160409Primula_veris3.jpg", 
+            "type": "Schluesselblume"
+          }
+        ], 
+        "datei": "Hufflattich", 
+        "path": "img/Hufflattich", 
+        "type": "folder"
+      }
+    ], 
+    "datei": "", 
+    "path": "img/", 
+    "type": "folder"
+}
