@@ -17,7 +17,8 @@ function gotResults(error, results){
         console.error(error);
     }else{
         output = results[0].label;
-        //mobilenet.classify(gotResults);
+        $(".guess").text(results[0].label);
+        console.log(results[0].label);
     }
  }
 function setup(){
@@ -26,14 +27,16 @@ function setup(){
     mobilenet = ml5.featureExtractor('MobileNet', modelReady);
     classifier = mobilenet.classification(userImage, imageReady);
 
-    button1 = createButton ('Fire');
+    button1 = createButton ('Object1');
     button1.mousePressed(function(){
-        classifier.addImage(userImage, 'Fire');
+        classifier.addImage(userImage, 'Object1');
+        console.log('added obj 1');
     });
 
-    button2 = createButton ('Water');
+    button2 = createButton ('Object2');
     button2.mousePressed(function(){
-        classifier.addImage(userImage, 'Water');
+        classifier.addImage(userImage, 'Object2');
+        console.log('added obj 2');
     });
 
     trainButton = createButton ('train');
@@ -41,7 +44,6 @@ function setup(){
         classifier.train(function(loss){
             if(loss == null){
                 console.log('training complete');
-                //classifier.classify(gotResults);
             }else{
                 console.log(loss);
             }
@@ -49,17 +51,16 @@ function setup(){
     });
 }
 
-function draw(){
-    textSize(32);
-    text(output, 10, height -10);
-}
-
 $(document).ready(function(){
     console.log('ready');
     $('.inputButton').click(function(){
         userImage = createImg($('.input').val(), imageReady);
         userImage.hide();
+        background(0);
         console.log($('.input').val());
     });
     
+    $('.classifyButton').click(function(){
+        classifier.classify(userImage, gotResults);
+    });
 })
