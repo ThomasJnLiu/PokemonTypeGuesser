@@ -6,6 +6,10 @@ let userImage;
 
 function modelReady(){
     console.log('model is ready');
+    classifier.load('./model.json', customModelReady);
+}
+function customModelReady(){
+    console.log('custom model is ready');
 }
 function imageReady(){
     image(userImage, 0, 0, width, height);
@@ -27,16 +31,16 @@ function setup(){
     mobilenet = ml5.featureExtractor('MobileNet', modelReady);
     classifier = mobilenet.classification(userImage, imageReady);
 
-    button1 = createButton ('Object1');
+    button1 = createButton ('Fire');
     button1.mousePressed(function(){
-        classifier.addImage(userImage, 'Object1');
-        console.log('added obj 1');
+        classifier.addImage(userImage, 'Fire');
+        console.log('added fire');
     });
 
-    button2 = createButton ('Object2');
+    button2 = createButton ('Water');
     button2.mousePressed(function(){
-        classifier.addImage(userImage, 'Object2');
-        console.log('added obj 2');
+        classifier.addImage(userImage, 'Water');
+        console.log('added water');
     });
 
     trainButton = createButton ('train');
@@ -63,4 +67,11 @@ $(document).ready(function(){
     $('.classifyButton').click(function(){
         classifier.classify(userImage, gotResults);
     });
-})
+
+    $('.saveButton').click(function(){
+        classifier.save();
+    })
+    $('.loadButton').click(function(){
+
+    });
+});
