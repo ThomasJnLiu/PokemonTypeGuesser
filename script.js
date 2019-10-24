@@ -6,7 +6,7 @@ let userImage;
 
 function modelReady(){
     console.log('model is ready');
-    classifier.load('./model.json', customModelReady);
+    
 }
 function customModelReady(){
     console.log('custom model is ready');
@@ -43,6 +43,60 @@ function setup(){
         console.log('added water');
     });
 
+    button3 = createButton ('Grass');
+    button3.mousePressed(function(){
+        classifier.addImage(userImage, 'Grass');
+        console.log('added grass');
+    });
+
+    button4 = createButton ('Normal');
+    button4.mousePressed(function(){
+        classifier.addImage(userImage, 'Normal');
+        console.log('added normal');
+    });
+
+    button5 = createButton ('Fighting');
+    button5.mousePressed(function(){
+        classifier.addImage(userImage, 'Fighting');
+        console.log('added fighting');
+    });
+
+    button6 = createButton ('Flying');
+    button6.mousePressed(function(){
+        classifier.addImage(userImage, 'Flying');
+        console.log('added flying');
+    });
+
+    button7 = createButton ('Poison');
+    button7.mousePressed(function(){
+        classifier.addImage(userImage, 'Poison');
+        console.log('added poison');
+    });
+
+    button8 = createButton ('Electric');
+    button8.mousePressed(function(){
+        classifier.addImage(userImage, 'Electric');
+        console.log('added electric');
+    });
+
+    button9 = createButton ('Psychic');
+    button9.mousePressed(function(){
+        classifier.addImage(userImage, 'Psychic');
+        console.log('added psychic');
+    });
+
+    button10 = createButton ('Bug');
+    button10.mousePressed(function(){
+        classifier.addImage(userImage, 'Bug');
+        console.log('added bug');
+    });
+
+    button11 = createButton ('Rock');
+    button11.mousePressed(function(){
+        classifier.addImage(userImage, 'Rock');
+        console.log('added rock');
+    });
+
     trainButton = createButton ('train');
     trainButton.mousePressed(function(){
         classifier.train(function(loss){
@@ -72,6 +126,6 @@ $(document).ready(function(){
         classifier.save();
     })
     $('.loadButton').click(function(){
-
+        classifier.load('./model.json', customModelReady);
     });
 });
