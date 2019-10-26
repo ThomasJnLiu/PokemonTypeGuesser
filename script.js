@@ -14,6 +14,7 @@ let electric = new Array (5);
 let psychic = new Array (5);
 let bug = new Array (5);
 let rock = new Array (5);
+let types = new Array(11);
 
 function modelReady(){
     console.log('model is ready');
@@ -34,6 +35,49 @@ function gotResults(error, results){
         output = results[0].label;
         $(".guess").text(results[0].label);
         console.log(results[0].label);
+
+        $('.type').css("display", "none");
+        switch(results[0].label){
+            case "bug":
+                    $('#bug').css("display", "inline");
+                break;
+            case "electric":
+                    $('#electric').css("display", "inline");
+                break;
+            case "fighting":
+                $('#fight').css("display", "inline");
+                break;         
+            case "fire":
+                $('#fire').css("display", "inline");
+                break;     
+            case "flying":
+                $('#flying').css("display", "inline");
+                break;  
+            case "grass":
+                $('#grass').css("display", "inline");
+            break;     
+            case "normal":
+                    $('#normal').css("display", "inline");
+            break;       
+            case "poison":
+                    $('#poison').css("display", "inline");
+            break;   
+            
+            case "psychic":
+                    $('#psychic').css("display", "inline");
+            break;  
+
+            case "rock":
+                    $('#rock').css("display", "inline");
+            break; 
+
+            case "water":
+                    $('#water').css("display", "inline");
+            break;
+            default:
+                break;
+        }
+       
     }
  }
 function setup(){
@@ -103,14 +147,26 @@ function setup(){
     rock[3] = createImg("images/rock/sandshrew.jpg");
     rock[4] = createImg("images/rock/onix.jpg");
 
+    types[0] = "images/typeSprites/bug";
+    types[1] = "images/typeSprites/electric";
+    types[2] = "images/typeSprites/fight";
+    types[3] = "images/typeSprites/fire";
+    types[4] = "images/typeSprites/flying";
+    types[5] = "images/typeSprites/grass";
+    types[6] = "images/typeSprites/normal";
+    types[7] = "images/typeSprites/poison";
+    types[8] = "images/typeSprites/psychic";
+    types[9] = "images/typeSprites/rock";
+    types[10] = "images/typeSprites/water";
+
     createCanvas(640, 520);
     background(0);
     mobilenet = ml5.featureExtractor('MobileNet', { numLabels: 11 },modelReady);
-     mobilenet.numClasses=11;
     classifier = mobilenet.classification(userImage, imageReady);
     
     button1 = createButton ('Add');
     button1.mousePressed(function(){
+        //train model by adding each image from each array by using a for loop
         for(var i = 0; i < 5; i++){
             classifier.addImage(fire[i], 'fire');
         }
@@ -146,77 +202,10 @@ function setup(){
         for(var i = 0; i < 5; i++){
             classifier.addImage(rock[i], 'rock');
         }
-
         console.log('done adding');
 
     });
-/*
-    button1 = createButton ('Fire');
-    button1.mousePressed(function(){
-        classifier.addImage(userImage, 'Fire');
-        console.log('added fire');
-    });
 
-    button2 = createButton ('Water');
-    button2.mousePressed(function(){
-        classifier.addImage(userImage, 'Water');
-        console.log('added water');
-    });
-
-    button3 = createButton ('Grass');
-    button3.mousePressed(function(){
-        classifier.addImage(userImage, 'Grass');
-        console.log('added grass');
-    });
-
-    button4 = createButton ('Normal');
-    button4.mousePressed(function(){
-        classifier.addImage(userImage, 'Normal');
-        console.log('added normal');
-    });
-
-    button5 = createButton ('Fighting');
-    button5.mousePressed(function(){
-        classifier.addImage(userImage, 'Fighting');
-        console.log('added fighting');
-    });
-
-    button6 = createButton ('Flying');
-    button6.mousePressed(function(){
-        classifier.addImage(userImage, 'Flying');
-        console.log('added flying');
-    });
-
-    button7 = createButton ('Poison');
-    button7.mousePressed(function(){
-        classifier.addImage(userImage, 'Poison');
-        console.log('added poison');
-    });
-
-    button8 = createButton ('Electric');
-    button8.mousePressed(function(){
-        classifier.addImage(userImage, 'Electric');
-        console.log('added electric');
-    });
-
-    button9 = createButton ('Psychic');
-    button9.mousePressed(function(){
-        classifier.addImage(userImage, 'Psychic');
-        console.log('added psychic');
-    });
-
-    button10 = createButton ('Bug');
-    button10.mousePressed(function(){
-        classifier.addImage(userImage, 'Bug');
-        console.log('added bug');
-    });
-
-    button11 = createButton ('Rock');
-    button11.mousePressed(function(){
-        classifier.addImage(userImage, 'Rock');
-        console.log('added rock');
-    });
-*/
     trainButton = createButton ('train');
     trainButton.mousePressed(function(){
         classifier.train(function(loss){
@@ -231,6 +220,8 @@ function setup(){
 
 $(document).ready(function(){
     console.log('ready');
+
+    $('.type').css("display", "none");
     $('.inputButton').click(function(){
         userImage = createImg($('.input').val(), imageReady);
         userImage.hide();
