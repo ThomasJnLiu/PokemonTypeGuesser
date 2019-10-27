@@ -1,0 +1,56 @@
+.type{
+    margin-top:1em;
+}
+
+img{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.guessText{
+    text-align:center;
+    font-size:2em;
+    margin-top:1em;
+}
+
+body{
+    background-image: url("images/background.png");
+    font-family: 'Roboto';
+}
+
+.typeContainer{
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.p5Canvas{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.input{
+    display:block;
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.guess{
+    margin: 5% auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+.inputButton{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}

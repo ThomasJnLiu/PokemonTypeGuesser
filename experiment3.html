@@ -1,4 +1,4 @@
-<!doctype html>+
+<!doctype html>
     <head>
         <script src="https://unpkg.com/ml5@0.3.1/dist/ml5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
@@ -6,41 +6,35 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="script.js"></script>
-
-        <style>
-            .input{
-                display:block;
-                width:50%;
-            }
-            .guess{
-                margin: 5% auto;
-            }
-        </style>
+        <link rel = "stylesheet" href = "styles.css">
     </head>
 
     <body>
         <div>
-            Enter an image url in the text area and the program will attempt to guess what it is. 
+            <p>Enter an image url below and the program will guess what type of Pokemon it'd be. </p>
             <textarea class = "input"></textarea>
             
             <button class = "inputButton">Enter</button>
-            <button class = "classifyButton">Classify</button>
-            <button class = "saveButton">Save</button>
-            <button class = "loadButton">Load</button>
-            <img class = "type" id = "fire" src = "images/typeSprites/fire.png">
-            <img class = "type" id = "bug" src = "images/typeSprites/bug.png">
-            <img class = "type" id = "electric" src = "images/typeSprites/electric.png">
-            <img class = "type" id = "fight" src = "images/typeSprites/fight.png">
-            <img class = "type" id = "flying" src = "images/typeSprites/flying.png">
-            <img class = "type" id = "grass" src = "images/typeSprites/grass.png">
-            <img class = "type" id = "normal" src = "images/typeSprites/normal.png">
-            <img class = "type" id = "poison" src = "images/typeSprites/poison.png">
-            <img class = "type" id = "psychic" src = "images/typeSprites/psychic.png">
-            <img class = "type" id = "rock" src = "images/typeSprites/rock.png">
-            <img class = "type" id = "water" src = "images/typeSprites/water.png">
+            <br>
+            <div class = "guessText">I think that the type of this image is: </div>
+
+            <div class = "typeContainer">
+                <img class = "type" id = "fire" src = "images/typeSprites/fire.png">
+                <img class = "type" id = "bug" src = "images/typeSprites/bug.png">
+                <img class = "type" id = "electric" src = "images/typeSprites/electric.png">
+                <img class = "type" id = "fight" src = "images/typeSprites/fight.png">
+                <img class = "type" id = "flying" src = "images/typeSprites/flying.png">
+                <img class = "type" id = "grass" src = "images/typeSprites/grass.png">
+                <img class = "type" id = "normal" src = "images/typeSprites/normal.png">
+                <img class = "type" id = "poison" src = "images/typeSprites/poison.png">
+                <img class = "type" id = "psychic" src = "images/typeSprites/psychic.png">
+                <img class = "type" id = "rock" src = "images/typeSprites/rock.png">
+                <img class = "type" id = "water" src = "images/typeSprites/water.png">
+        </div>
 
         </div>
 
         <div class = "guess"></div>
+        <div class = "image"></div>
     </body>
 </html>

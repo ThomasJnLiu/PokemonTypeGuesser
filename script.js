@@ -1,6 +1,6 @@
 let mobilenet;
 let classifier; 
-let output = '';
+
 let button1, button2, trainButton;
 let userImage;
 let fire = new Array (5);
@@ -24,7 +24,8 @@ function customModelReady(){
     console.log('custom model is ready');
 }
 function imageReady(){
-    //image(userImage, 0, 0, width, height);
+    image(userImage, 0, 0, width, height);
+
     console.log('image is ready');
     classifier.classify(userImage, gotResults);
 }
@@ -33,8 +34,6 @@ function gotResults(error, results){
     if(error){
         console.error(error);
     }else{
-        output = results[0].label;
-        $(".guess").text(results[0].label);
         console.log(results[0].label);
 
         $('.type').css("display", "none");
@@ -83,10 +82,10 @@ function gotResults(error, results){
  }
 function setup(){
 
-    // createCanvas(640, 520);
-    // background(0);
     mobilenet = ml5.featureExtractor('MobileNet', { numLabels: 11 },modelReady);
     classifier = mobilenet.classification(userImage, imageReady);
+
+    createCanvas(640,480);
     /*
     fire[0] = createImg("images/fire/charmander.jpg");
     fire[1] = createImg("images/fire/flareon.jpg");
@@ -232,8 +231,7 @@ $(document).ready(function(){
         }
        
         userImage = createImg($('.input').val(), imageReady);
-        //resizeCanvas(userImage.width, userImage.height);
-
+        userImage.hide();
     });
 
     $('.saveButton').click(function(){
