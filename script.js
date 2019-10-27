@@ -18,14 +18,15 @@ let types = new Array(11);
 
 function modelReady(){
     console.log('model is ready');
-    
+    classifier.load('./model.json', customModelReady);
 }
 function customModelReady(){
     console.log('custom model is ready');
 }
 function imageReady(){
-    image(userImage, 0, 0, width, height);
+    //image(userImage, 0, 0, width, height);
     console.log('image is ready');
+    classifier.classify(userImage, gotResults);
 }
 
 function gotResults(error, results){
@@ -81,6 +82,12 @@ function gotResults(error, results){
     }
  }
 function setup(){
+
+    // createCanvas(640, 520);
+    // background(0);
+    mobilenet = ml5.featureExtractor('MobileNet', { numLabels: 11 },modelReady);
+    classifier = mobilenet.classification(userImage, imageReady);
+    /*
     fire[0] = createImg("images/fire/charmander.jpg");
     fire[1] = createImg("images/fire/flareon.jpg");
     fire[2] = createImg("images/fire/magmar.jpg");
@@ -157,81 +164,76 @@ function setup(){
     types[7] = "images/typeSprites/poison";
     types[8] = "images/typeSprites/psychic";
     types[9] = "images/typeSprites/rock";
-    types[10] = "images/typeSprites/water";
+    types[10] = "images/typeSprites/water";*/
 
-    createCanvas(640, 520);
-    background(0);
-    mobilenet = ml5.featureExtractor('MobileNet', { numLabels: 11 },modelReady);
-    classifier = mobilenet.classification(userImage, imageReady);
+
     
-    button1 = createButton ('Add');
-    button1.mousePressed(function(){
-        //train model by adding each image from each array by using a for loop
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(fire[i], 'fire');
-        }
+    // button1 = createButton ('Add');
+    // button1.mousePressed(function(){
+    //     //train model by adding each image from each array by using a for loop
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(fire[i], 'fire');
+    //     }
 
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(water[i], 'water');
-        }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(water[i], 'water');
+    //     }
         
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(grass[i], 'grass');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(normal[i], 'normal');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(fighting[i], 'fighting');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(flying[i], 'flying');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(poison[i], 'poison');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(electric[i], 'electric');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(psychic[i], 'psychic');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(bug[i], 'bug');
-        }
-        for(var i = 0; i < 5; i++){
-            classifier.addImage(rock[i], 'rock');
-        }
-        console.log('done adding');
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(grass[i], 'grass');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(normal[i], 'normal');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(fighting[i], 'fighting');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(flying[i], 'flying');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(poison[i], 'poison');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(electric[i], 'electric');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(psychic[i], 'psychic');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(bug[i], 'bug');
+    //     }
+    //     for(var i = 0; i < 5; i++){
+    //         classifier.addImage(rock[i], 'rock');
+    //     }
+    //     console.log('done adding');
 
-    });
+    // });
 
-    trainButton = createButton ('train');
-    trainButton.mousePressed(function(){
-        classifier.train(function(loss){
-            if(loss == null){
-                console.log('training complete');
-            }else{
-                console.log(loss);
-            }
-        });
-    });
+    // trainButton = createButton ('train');
+    // trainButton.mousePressed(function(){
+    //     classifier.train(function(loss){
+    //         if(loss == null){
+    //             console.log('training complete');
+    //         }else{
+    //             console.log(loss);
+    //         }
+    //     });
+    // });
 }
 
 $(document).ready(function(){
     console.log('ready');
-
+    
     $('.type').css("display", "none");
     $('.inputButton').click(function(){
+        if(userImage){
+            userImage.hide();
+        }
+       
         userImage = createImg($('.input').val(), imageReady);
-        userImage.hide();
-        background(0);
-        resizeCanvas(userImage.width, userImage.height);
-        console.log($('.input').val());
-    });
-    
-    $('.classifyButton').click(function(){
-        classifier.classify(userImage, gotResults);
+        //resizeCanvas(userImage.width, userImage.height);
+
     });
 
     $('.saveButton').click(function(){
